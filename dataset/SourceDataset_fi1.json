@@ -1,0 +1,36 @@
+{
+	"name": "SourceDataset_fi1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_sreeadlsgen2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "incrementalload"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "cid",
+				"type": "String"
+			},
+			{
+				"name": "cname",
+				"type": "String"
+			},
+			{
+				"name": "caddr",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

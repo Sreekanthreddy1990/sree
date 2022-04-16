@@ -1,0 +1,109 @@
+{
+	"name": "CopyPipeline_fi1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_fi1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "incrementalload//"
+					},
+					{
+						"name": "Destination",
+						"value": ".Azure Data Lake Storage Gen2 file"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"maxConcurrentConnections": 1,
+							"recursive": true,
+							"wildcardFileName": "*",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings",
+							"skipLineCount": 0
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"validateDataConsistency": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "cid",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "cid",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "cname",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "cname",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "caddr",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "caddr",
+									"type": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_fi1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_fi1",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2022-04-15T07:04:52Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
